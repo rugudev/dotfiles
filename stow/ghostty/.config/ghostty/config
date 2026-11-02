@@ -7,3 +7,7 @@ working-directory = home
 
 # Transparency (matches kitty's `background_opacity`).
 background-opacity = 0.9
+
+# Quit when the last window closes, so cmd+w leaves nothing in the Dock
+# (the alt-enter AeroSpace binding relaunches/reuses the app as needed).
+quit-after-last-window-closed = true
