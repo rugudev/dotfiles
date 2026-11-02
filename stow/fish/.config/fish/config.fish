@@ -50,6 +50,7 @@ if type -q zoxide
     zoxide init fish | source
 end
 
-if status is-interactive
+# Initialize atuin for shell history search
+if status is-interactive; and type -q atuin
     atuin init fish | source
 end
