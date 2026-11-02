@@ -63,7 +63,9 @@ automatically-unhide-macos-hidden-apps = false
 # 'main' binding mode must be always presented
 # Fallback value (if you omit the key): mode.main.binding = {}
 [mode.main.binding]
-    alt-enter = 'exec-and-forget /bin/sh -lc "/opt/homebrew/bin/kitty --single-instance --detach --directory \"$HOME\""'
+    # Ghostty can't open a window in the running instance from the CLI on macOS
+    # (`ghostty +new-window` is Linux-only), so `open -na` is used instead.
+    alt-enter = 'exec-and-forget open -na /Applications/Ghostty.app'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#layout
     alt-slash = 'layout tiles horizontal vertical'
