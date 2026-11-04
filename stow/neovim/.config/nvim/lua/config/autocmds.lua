@@ -6,11 +6,24 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
-vim.api.nvim_create_autocmd("BufWritePost", {
+-- Format Go and fix imports through gopls before every write.
+-- Requests are synchronous so the edits are in the buffer before it hits disk.
+vim.api.nvim_create_autocmd("BufWritePre", {
+  group = vim.api.nvim_create_augroup("UserGoFormat", {}),
   pattern = "*.go",
-  callback = function()
-    vim.cmd("!goimports -w % && gofmt -w %")
-  end
+  callback = function(event)
+    for _, client in ipairs(vim.lsp.get_clients({ bufnr = event.buf, name = "gopls" })) do
+      local params = vim.lsp.util.make_range_params(0, client.offset_encoding)
+      params.context = { only = { "source.organizeImports" }, diagnostics = {} }
+      local response = client:request_sync("textDocument/codeAction", params, 2000, event.buf)
+      for _, action in ipairs(response and response.result or {}) do
+        if action.edit then
+          vim.lsp.util.apply_workspace_edit(action.edit, client.offset_encoding)
+        end
+      end
+    end
+    vim.lsp.buf.format({ bufnr = event.buf, timeout_ms = 2000 })
+  end,
 })
 
 vim.api.nvim_create_autocmd("FileType", {
