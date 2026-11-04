@@ -9,3 +9,4 @@ vim.opt.listchars = { trail = '@' }
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.signcolumn = 'yes'
+vim.opt.foldlevelstart = 99 -- Tree-sitter folds available but open by default
