@@ -9,10 +9,19 @@ return {
         ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
         ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
       },
+      -- Show the function signature automatically while typing inside a call
+      signature = {
+        enabled = true,
+        window = { border = 'rounded', show_documentation = false },
+      },
+      -- Give popups a frame; with a transparent background they are otherwise
+      -- just text drawn over the code.
       completion = {
         list = {
           selection = { preselect = false, auto_insert = false },
         },
+        menu = { border = 'rounded' },
+        documentation = { window = { border = 'rounded' } },
       },
     },
   },
