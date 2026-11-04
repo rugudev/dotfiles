@@ -6,6 +6,9 @@ return {
     spec = {
       { '<leader>s', group = 'Search' },
       { '<leader>r', group = 'Refactor' },
+      { '<leader>h', group = 'Git Hunk' },
+      { '<leader>g', group = 'Git Diff' },
+      { '<leader>t', group = 'Toggle' },
     },
   },
   keys = {
