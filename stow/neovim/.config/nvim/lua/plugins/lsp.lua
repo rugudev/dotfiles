@@ -28,7 +28,6 @@ return {
 
       local client = vim.lsp.get_client_by_id(event.data.client_id)
       if client and client:supports_method('textDocument/inlayHint', event.buf) then
-        vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
         keymap('n', '<leader>i', function()
           local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf })
           vim.lsp.inlay_hint.enable(not enabled, { bufnr = event.buf })
