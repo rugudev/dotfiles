@@ -21,7 +21,9 @@ return {
       pattern = languages,
       callback = function(event)
         -- Skip if the parser is missing (e.g. first launch before install finishes).
-        if not pcall(vim.treesitter.get_parser, event.buf) then
+        -- get_parser returns nil plus a message rather than raising, so check the value.
+        local ok, parser = pcall(vim.treesitter.get_parser, event.buf)
+        if not ok or not parser then
           return
         end
         vim.treesitter.start(event.buf)
